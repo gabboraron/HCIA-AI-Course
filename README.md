@@ -162,9 +162,122 @@ In most cases, the collected data can be used by algorithms only after being pre
 > - Simplify models to make them easy for users to interpret
 > - Reduce the training time
 > - Avoid dimension explosion
-> - Improve model generalization and avoid overfittingű
+> - Improve model generalization and avoid overfitting
 
-#### Feature Selection Methods - Filter
+#### Feature Selection Methods - *Filter*
 > Filter methods are independent of the model during feature selection.
+Procedure of a filter method:
+1. Traverse all features
+2. Select the optimal feature subset
+3. Train models
+4. Evaluate the performance
 
+> By evaluating the correlation between each feature and the target attribute, these methods use a statistical measure to assign a value to each feature. Features are then sorted by score, which is helpful for preserving or eliminating specific features.
+
+**Common methods:**
+- Pearson correlation coefficient
+- Chi-square coefficient
+- Mutual information
+
+**Limitations:** The filter method tends to select redundant variables as the relationship between features is not considered.
+
+#### Feature Selection Methods - *Wrapper*
+> Wrapper methods use a prediction model to score feature subsets.
+>
+> Wrapper methods consider feature selection as a search issue for which different combinations are evaluated and compared. A predictive model is used to evaluate a combination of features and assign a score based on model accuracy.
+>
+> **Common methods:** Recursive feature elimination (RFE)
+>
+> **Limitations:** 
+> - Wrapper methods train a new model for each subset, resulting in a **huge number of computations.**
+> - specific type of model
+
+#### Feature Selection Methods - Embedded
+> Embedded methods consider feature selection as a part of model construction.
+> 
+> The most common type of embedded feature selection method is the **regularization method.**
+> 
+> introduce additional constraints into the optimization of a predictive algorithm that bias the model toward lower complexity and reduce the number of features
+> 
+> - Lasso regression
+> - Ridge regression
+
+### Model Validity
+> **Generalization capability:** The goal of machine learning is that the model obtained after learning should perform well on new samples, not just on samples used for training. The capability of applying a model to new samples is called generalization or robustness.
+> 
+> **Error:** difference between the sample result predicted by the model obtained after learning and the actual sample result.
+> - **Training error:** error that you get when you run the model on the training data.
+> - **Generalization error:** error that you get when you run the model on new samples. Obviously, we prefer a model with a smaller generalization error.
+> 
+> **Underfitting:** occurs when the model or the algorithm does not fit the data well enough.
+> 
+> **Overfitting:** occurs when the training error of the model obtained after learning is small but the generalization error is large (poor generalization capability).
+> 
+> **Model capacity:** model's capability of fitting functions, which is also called model complexity.
+> 
+> ![model validity](https://cdn-images-1.medium.com/fit/t/1600/480/1*4jOu2F-U1MdkAlqoKNZP3Q.png)
+
+#### Overfitting cause error
+Generally, the prediction error can be divided into two types:
+- Variance:
+  - Offset of the prediction result from the average value 
+  - Error caused by the model's sensitivity to small fluctuations in the training set
+- Bias:
+  - Difference between the expected (or average) prediction value and the correct value we are trying to predict. 
+> Low bias & low variance –> Good model
+> 
+> High bias & high variance –> Poor model
+> 
+> ![varinace and bias](https://miro.medium.com/max/936/1*xwtSpR_zg7j7zusa4IDHNQ.png)
+>
+> We want a model that can accurately capture the rules in the training data and summarize the invisible data (new data). However, it is usually impossible.
+> 
+> As the model complexity increases,
+> - the training error decreases.
+> - the test error decreases to a certain point and then increases in the reverse direction, forming a convex curve
+
+#### Performance Evaluation - *Regression*
+> [Data Science Modeling: How to Use Linear Regression with Python](https://betterprogramming.pub/data-science-modeling-how-to-use-linear-regression-with-python-fdf6ca5481be?gi=17cffccc0f40)
+>
+> The closer the Mean Absolute Error (MAE) is to 0, the better the model can fit the training data.
+>
+> ![The closer the Mean Absolute Error (MAE) is to 0, the better the model can fit the training data.](https://miro.medium.com/max/1902/0*XCZRQEl7E4vUdONe)
+> 
+> Mean Square Error (MSE)
+> ![Mean Square Error (MSE)](https://datavedas.com/wp-content/uploads/2018/04/image003-1.png)
+>
+> The value range of R 2 is (–∞, 1]. A larger value indicates that the model can better fit the training data. TSS indicates the difference between samples. RSS indicates the difference between the predicted value and sample value.
+> 
+> ![TSS & RSS](http://qed.econ.queensu.ca/walras/custom/300/351B/images/reg315.gif)
+> 
+> http://qed.econ.queensu.ca/walras/custom/300/351B/notes/reg_08.htm
+
+#### Performance Evaluation - *Classification*
+![Classification](https://slideplayer.com/slide/14608598/90/images/62/Evaluation+Measures+True+positives+%28TP%29%3A+These+refer+to+the+positive+tuples+that+were+correctly+labeled+by+the+classifier..jpg)
+
+#### Example of Machine Learning Performance Evaluation
+> We have trained a machine learning model to identify whether the object in an image is a cat. Now we use 200 pictures to verify the model performance. Among the 200 images, objects in 170 images are cats, while others are not. The identification result of the model is that objects in 160 images are cats, while others are not.
+>
+> `Precision: P= 140/(140+20) = 87.5%`
+> 
+> `Recall: R = 140/170 = 82.4%`
+> 
+> `Accuracy: ACC = (140+10)/(170+30) = 75%`
+
+### Machine Learning Algorithm Overview
+![Machine Learning Algorithm Overview](https://anniepyim.github.io/kaggle_images/ML_types.png)
+
+### KNN
+> The KNN classification algorithm is a theoretically mature method and one of the simplest machine learning algorithms. According to this method, if the majority of k samples most similar to one sample (nearest neighbors in the eigenspace) belong to a specific category, this sample also belongs to this category.
+> 
+> As the prediction result is determined based on the number and weights of neighbors in the training set, the KNN algorithm has a simple logic
+> 
+> ![KNN](https://d3i71xaburhd42.cloudfront.net/1d1cc23015232de1c60dc4de8c05b0b4229d4a1c/25-Figure2.1-1.png)
+> 
+
+### Ensemble Learning
+- Ensemble learning is a machine learning paradigm in which multiple learners are trained and combined to solve the same problem. When multiple learners are used, the integrated generalization capability can be much stronger than that of a single learner.
+- If you ask a complex question to thousands of people at random and then summarize their answers, the summarized answer is better than an expert's answer in most cases. This is the wisdom of the masses.
+
+![bagging vs boosting](https://www.researchgate.net/profile/Ryan-Byrne-2/publication/334404567/figure/download/fig4/AS:862185249071106@1582572390782/Illustrations-of-A-bagging-and-B-boosting-ensemble-algorithms.ppm)
 
