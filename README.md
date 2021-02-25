@@ -110,3 +110,61 @@ https://forum.huawei.com/enterprise/en/five-levels-to-know-machine-learning-algo
 > 
 > - *Autopilot: Should it brake or accelerate when the yellow light starts to flash? *
 > - *Cleaning robot: Should it keep working or go back for charging?*
+
+### Dataset
+- Each data record is called a sample
+- events that reflect the performance or  nature of a sample in particular aspects are called features
+
+### Training set
+- each sample is referred to as a training sample
+- creating model from data = learning
+
+### Test set
+- the process of using the model obtained after learning for prediction
+- each sample is called a test sample
+
+### Data Processing
+- more: https://forum.huawei.com/enterprise/en/important-concepts-of-machine-learning/thread/700585-893?from=latestPostsReplies
+- Before using the data, you need to preprocess the data. There is no standard process for data preprocessing. Data preprocessing varies according to tasks and data set attributes. Common data preprocessing processes include removing unique attributes, processing missing values, encoding attributes, standardizing and regularizing data, selecting features, and analyzing principal components.
+
+![Importance of Data Processing](https://forum.huawei.com/enterprise/en/data/attachment/forum/202102/23/140922brtbtgtmvghwzodb.png?13.PNG)
+
+#### Data Cleansing
+> Fill in missing values, and detect and eliminate causes of dataset exceptions.
+
+In most cases, the collected data can be used by algorithms only after being preprocessed. The preprocessing operations include the following:
+- Data filtering.
+- Processing of lost data.
+- Processing of possible exceptions, errors, or abnormal values.
+- Combination of data from multiple data sources.
+- Data consolidation.
+- Generally, real data may have some quality problems.
+- Incompleteness: contains missing values or the data that lacks attributes
+- Noise: contains incorrect records or exceptions.
+- Inconsistency: contains inconsistent records.
+
+
+![Dirty Data](https://forum.huawei.com/enterprise/en/data/attachment/forum/202102/23/141005wquuvu8hbkzbb3qh.png?12.PNG) ![Workload of Data Cleansing](https://forum.huawei.com/enterprise/en/data/attachment/forum/202102/23/141059x8wavtutftaev708.png?14.PNG)
+
+- With respect to classification, category data is encoded into a corresponding numerical representation.
+- Value data is converted to category data to reduce the value of variables (for age segmentation).
+- Other data
+  - In the text, the word is converted into a word vector through word embedding (generally using the word2vec model, BERT model, etc).
+  - Process image data (color space, grayscale, geometric change, Haar feature, and image enhancement)
+- Feature engineering
+  - Normalize features to ensure the same value ranges for input variables of the same model.
+  - Feature expansion: Combine or convert existing variables to generate new features, such as the average.
+
+#### Necessity of Feature Selection
+> Generally, a dataset has many features, some of which may be redundant or irrelevant to the value to be predicted.
+> 
+> Feature selection is necessary in the following aspects:
+> - Simplify models to make them easy for users to interpret
+> - Reduce the training time
+> - Avoid dimension explosion
+> - Improve model generalization and avoid overfittingű
+
+#### Feature Selection Methods - Filter
+> Filter methods are independent of the model during feature selection.
+
+
