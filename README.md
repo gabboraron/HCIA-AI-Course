@@ -863,6 +863,72 @@ Massive systolic arrays and large-capacity on-chip storage are adopted to accele
 > Neural-network processing unit (NPU): uses a deep learning instruction set to process a large number of human neurons and synapses simulated at the circuit layer. One instruction is used to process a group of neurons. 
 >
 > Typical NPUs: Huawei Ascend AI chips, Cambricon chips, and IBM TrueNorth
+- controrl cpu
+- ai computing engine including ai core and ai cpu
+- multi lyaer system on chip
 
+#### Da Vinci Architecture
+> **computing unit**
+> - *cube, vector and scalar units* corrersond to matrix vector and scalar computing modes respectively
+>   - **cube:** The matrix computing unit and accumulator are used to perform matrix-related operations. Completes a matrix (4096) of 16x16 multiplied by 16x16 for FP16, or a matrix (8192) of 16x32 multiplied by 32x16 for the INT8 input in a shot.
+>   - **Vector computing unit:** implements computing between vectors and scalars or between vectors. This function covers various basic computing types and many customized computing types, including computing of data types such as FP16, FP32, INT32, and INT8.
+>   - **Scalar computing unit:** Equivalent to a micro CPU, the scalar unit controls the running of the entire AI core. It implements loop control and branch judgment for the entire program, and provides the computing of data addresses and related parameters for cubes or vectors as well as basic arithmetic operations
+>   
+> **Storage System**
+> - The storage system of the AI core is composed of the storage unit and corresponding data channel.
+> - the storage unit consists of the storage control unit, buffer, and registers:
+> - Storage control unit: The cache at a lower level than the AI core can be directly accessed through the bus interface. The memory can also be directly accessed through the DDR or HBM. A storage conversion unit is set as a transmission controller of the internal data channel of the AI core to implement read/write management of internal data of the AI core between different buffers. It also completes a series of format conversion operations, such as zero padding, Img2Col, transposing, and decompression.
+> - input buffer: The buffer temporarily stores the data that needs to be frequently used so the data does not need to be read from the AI core through the bus interface each time. This mode reduces the frequency of data access on the bus and the risk of bus congestion, thereby reducing power consumption and improving performance.
+> - Output buffer: The buffer stores the intermediate results of computing at each layer in the neural network, so that the data can be easily obtained for next-layer computing. Reading data through the bus involves low bandwidth and long latency, whereas using the output buffer greatly improves the computing efficiency
+> 
+> Data channel: path for data flowing in the AI core during execution of computing tasks. A data channel of the Da Vinci architecture is characterized by multiple-input single-output. Considering various types and a large quantity of input data in the computing process on the neural network, parallel inputs can improve data inflow efficiency. On the contrary, only an output feature matrix is generated after multiple types of input data are processed. The data channel with a single output of data reduces the use of chip hardware resources.
+> 
+> The control unit consists of the system control module, instruction cache, scalar instruction processing queue, instruction transmitting module, matrix operation queue, vector operation queue, storage conversion queue, and event synchronization module.
 
+#### Software Architecture of Ascend Chips
+> This section describes the software architecture of Ascend chips, including the logic architecture and neural network software flow of Ascend AI processors.
 
+##### Logic Architecture of Ascend AI Processor Software Stack
+> **L3 application enabling layer:** It is an application-level encapsulation layer that provides different processing algorithms for specific application fields. L3 provides various fields with computing and processing engines. It can directly use the framework scheduling capability provided by L2 to generate corresponding NNs and implement specific engine functions.
+> 
+> L2 execution framework layer: encapsulates the framework calling capability and offline model generation capability. After the application algorithm is developed and encapsulated into an engine at L3, L2 calls the appropriate deep learning framework, such as Caffe or TensorFlow, based on the features of the algorithm to obtain the neural network of the corresponding function, and generates an offline model through the framework manager. After L2 converts the original neural network model into an offline model that can be executed on Ascend AI chips, the offline model executor (OME) transfers the offline model to Layer 1 for task allocation.
+> 
+> L1 chip enabling layer: bridges the offline model to Ascend AI chips. L1 accelerates the offline model for different computing tasks via libraries.
+> 
+> L0 computing resource layer: provides computing resources and executes specific computingtasks. It is the hardware computing basis of the Ascend AI chip.
+
+#### Data Flowchart of the Ascend AI Processor - Facial Recognition Inference Application
+Camera data collection and processing
+- Compressed video streams are transmitted from the camera to the DDR memory through PCIe
+- DVPP reads the compressed video streams into the cache.
+- After preprocessing, DVPP writes decompressed frames into the DDR memory.
+- Data inference
+  - The task scheduler (TS) sends an instruction to the DMA engine to pre-load the AI resources from the DDR to the on-chip buffer.
+  - The TS configures the AI core to execute tasks.
+  - The AI core reads the feature map and weight, and writes the result to the DDR or on-chip buffer
+
+Facial recognition result output: 
+- After processing, the AI core sends the signals to the TS, which checks the result.
+- When the last AI task is complete, the TS reports the result to the host.
+
+### Huawei Open AI Platform for Smart Devices
+> Huawei HiAI is an open artificial intelligence (AI) capability platform for smart devices, which adopts a "chip-device-cloud" architecture, opening up chip, app, and service capabilities for a fully intelligent ecosystem. This assists developers in delivering a better smart app experience for users by fully leveraging Huawei's powerful AI processing capabilities.
+
+#### Challenges in AI Capability Development and Application
+- High thresholds
+- Low efficiency
+- Diverse requests
+- Slow iteration
+
+#### HiAI Foundation
+> HiAI Foundation APIs constitute an AI computing library of a mobile computing platform, enabling developers to efficiently compile AI apps that can run on mobile devices.
+> 
+> Support the largest number of operators (300+) in the industry and more frameworks, greatly improving flexibility and compatibility.
+
+#### HiAI Engine
+> HiAI Engine opens app capabilities and integrates multiple AI capabilities into apps, making apps smarter and more powerful.
+> 
+> Provide handwriting recognition and dynamic gesture recognition capabilities, with 40+ underlying APIs.
+
+#### HiAI Service
+> HiAI Service enables developers to reuse services on multiple devices, such as mobile phones, tablets, and large screens, with only one service access, efficiently implementing distribution.
