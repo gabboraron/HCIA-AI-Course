@@ -736,4 +736,133 @@ You can test the model using the test set, compare predicted results with actual
 [loss accuracy]
 ```
 ### Huawei MindSpore AI Development Framework
+https://www.mindspore.cn/en
+
+file: https://github.com/gabboraron/HCIA-AI-Course/blob/main/3de17dec2fb411ebb802fa163e57590a_05%20Huawei%20MindSpore%20AI%20Development%20Framework.pdf
+> This chapter introduces the structure, design concept, and features of MindSpore based on the issues and difficulties facing by the AI computing framework, and describes the development and application process in MindSpore.
+
+#### Architecture: Easy Development and Efficient Execution
+![mindspore](https://venturebeat.com/wp-content/uploads/2020/03/MindSpore-architecture.png?w=800&resize=800%2C478&strip=all)
+#### Auto Parallelism
+Ultra-large models realize efficient distributed training: As NLP-domain models swell, the memory overhead for training ultra-large models such as Bert (340M)/GPT-2(1542M) has exceeded the capacity of a single card. Therefore, the models need to be split into multiple cards before execution. Manual model parallelism is used currently. Model segmentation needs to be designed and the cluster topology needs to be understood. The development is extremely challenging. The performance is lackluster and can be hardly optimized.
+
+Automatic graph segmentation: It can segment the entire graph based on the input and output data dimensions of the operator, and integrate the data and model parallelism. Cluster topology awareness scheduling: It can perceive the cluster topology, schedule subgraphs automatically, and minimize the communication overhead
+
+Challenges for model execution with supreme chip computing power: Memory wall, high interaction overhead, and data supply difficulty. Partial operations are performed on the host, while the others are performed on the device. The interaction overhead is much greater than the execution overhead, resulting in the low accelerator usage
+
+Challenges for model execution with supreme chip computing power: Memory wall, high interaction overhead, and data supply difficulty. Partial operations are performed on the host, while the others are performed on the device. The interaction overhead is much greater than the execution overhead, resulting in the low accelerator usage.
+
+Chip-oriented deep graph optimization reduces the synchronization waiting time and maximizes the parallelism of data, computing, and communication. Data pre-processing and computation are integrated into the Ascend chip.
+
+Challenges for distributed gradient aggregation with supreme chip computing power: the synchronization overhead of central control and the communication overhead of frequent synchronization of ResNet50 under the single iteration of 20 ms; the traditional method can only complete All Reduce after three times of synchronization, while the data-driven method can autonomously perform All Reduce without causing control overhead
+
+The optimization of the adaptive graph segmentation driven by gradient data can realize decentralized All Reduce and synchronize gradient aggregation, boosting computing and communication efficiency
+
+The diversity of hardware architectures leads to fullscenario deployment differences and performance uncertainties. The separation of training and inference leads to isolation of models
+
+Unified model IR delivers a consistent deployment experience. The graph optimization technology featuring software and hardware collaboration bridges different scenarios. Device-cloud Synergy Federal Meta Learning breaks the devicecloud boundary and updates the multi-device collaboration model in real time
+
+#### Getting started
+**Install:** https://www.mindspore.cn/install/en
+
+In MindSpore, data is stored in tensors. Common tensor operations: 
+- `asnumpy()`
+- `size()`
+- `dim()`
+- `dtype()`
+- `set_dtype()`
+- `tensor_add(other: Tensor)`
+- `tensor_mul(other: Tensor)`
+- `shape()`
+- `__Str__# (conversion into strings)`
+
+Common operations in MindSpore: 
+- `array`: Array-related operators
+- `math`: Math-related operators 
+- `nn`: Network operators 
+- `control`: Control operators 
+- `random`: Random operators
+
+#### Programming Concept: Cell
+A cell defines the basic module for calculation. The objects of the cell can be directly executed. 
+- `__init__`: It initializes and verifies modules such as parameters, cells, and primitives. 
+- `Construct`: It defines the execution process. In graph mode, a graph is compiled for execution and is subject to specific syntax restrictions
+- `bprop` (optional): It is the reverse direction of customized modules. If this function is undefined, automatic differential is used to calculate the reverse of the construct part
+
+Cells predefined in MindSpore mainly include: common loss (Softmax Cross Entropy With Logits and MSELoss), common optimizers (Momentum, SGD, and Adam), and common network packaging functions, such as TrainOneStepCell network gradient calculation and update, and WithGradCell gradient calculation
+
+#### Programming Concept: MindSporeIR
+MindSporeIR is a compact, efficient, and flexible graph-based functional IR that can represent functional semantics such as free variables, high-order functions, and recursion. It is a program carrier in the process of AD and compilation optimization. 
+
+Each graph represents a function definition graph and consists of ParameterNode, ValueNode, and ComplexNode (CNode). 
+
+The figure shows the def-use relationship.
+
+Let’s take the recognition of MNIST handwritten digits as an example to demonstrate the modeling process in MindSpore.
+> **Data**
+> 1. Data loading 
+> 2. Data enhancement
+> 
+> **Network**
+> 3. Network definition 
+> 4. Weight initialization 
+> 5. Network execution
+>  
+> **Model**
+> 6. Loss function 
+> 7. Optimizer 
+> 8. Training iteration 
+> 9. Model evaluation
+> 
+> **Application**
+> 10. Model saving 
+> 11. Load prediction 
+> 12. Fine tuning
+
+### Atlas AI Computing Platform
+file: https://github.com/gabboraron/HCIA-AI-Course/blob/main/65e544c22fb411ebb802fa163e57590a_06%20Atlas%20AI%20Computing%20Platform.pdf
+
+Ascend is a chip where Atlas is the computing platform
+
+#### Classification of AI Chips 
+> AI chips, also known as AI accelerators, are function modules that process massive computing tasks in AI applications.
+
+AI Chips can be divided into four types by technical architecture:
+1. A central processing unit (CPU): a super-large-scale integrated circuit, which is the computing core and control unit of a computer. It can interpret computer instructions and process computer software data. 
+2. A graphics processing unit (GPU): a display core, visual processor, and display chip. It is a microprocessor that processes images on personal computers, workstations, game consoles, and mobile devices, such as tablet computers and smart phones.
+3. An application specific integrated circuit (ASIC): an integrated circuit designed for a specific purpose
+4. A field programmable gate array (FPGA): designed to implement functions of a semicustomized chip. The hardware structure can be flexibly configured and changed in real time based on requirements.
+
+AI chips can be divided into training and inference by business application:
+- In the training phase, a complex deep neural network model needs to be trained through a large number of data inputs or an unsupervised learning method such as enhanced learning. The training process requires massive training data and a complex deep neural network structure. The huge computing amount requires ultra-high performance including computing power, precision, and scalability of processors. Nvidia GPU cluster and Google TPUs are commonly used in AI training. 
+- Inferences are made using trained models and new data. For example, a video surveillance device uses the background deep neural network model to recognize a captured face. Although the calculation amount of the inference is much less than that of training, a large number of matrix operations are involved. GPU, FPGA and ASIC are also used in the inference process. 
+
+##### Current Status of AI Chips - CPU
+- The computer performance has been steadily improved based on the Moore's Law
+- The CPU cores added for performance enhancement also increase power consumption and cost
+- Extra instructions have been introduced and the architecture has been modified to improve AI performance. 
+- Despite that boosting the processor frequency can elevate the performance, the high frequency will cause huge power consumption and overheating of the chip as the frequency reaches the ceiling.
+
+##### Current Status of AI Chips - GPU
+- GPU performs remarkably in matrix computing and parallel computing and plays a key role in heterogeneous computing. It was first introduced to the AI field as an acceleration chip for deep learning. Currently, the GPU ecosystem has matured.
+- Using the GPU architecture, NVIDIA focuses on the following two aspects of deep learning: 
+  - Diversifying the ecosystem: It has launched the cuDNN optimization library for neural networks to improve usability and optimize the GPU underlying architecture. 
+  - Improving customization: It supports various data types, including int8 in addition to float32; introduces modules dedicated for deep learning.
+- The existing problems include high costs and latency and low energy efficiency
+
+##### Current Status of AI Chips - TPU *(Tensor processing unit (TPU))*
+Massive systolic arrays and large-capacity on-chip storage are adopted to accelerate the most common convolution operations in deep neural networks. 
+##### Current Status of AI Chips - FPGA
+- Using the HDL programmable mode, FPGAs are highly flexible, reconfigurable and reprogrammable, and customizable. 
+- the design and tapeout processes are decoupled. The development period is long, generally half a year. The entry barrier is high
+
+##### Design Comparison of GPUs and CPUs
+- GPUs are designed for massive data of the same type independent from each other and pure computing environments that do not need to be interrupted. 
+- CPUs need to process different data types in a universal manner, perform logic judgment, and introduce massive branch jumps and interrupted processing
+##### Ascend AI Processors
+> Neural-network processing unit (NPU): uses a deep learning instruction set to process a large number of human neurons and synapses simulated at the circuit layer. One instruction is used to process a group of neurons. 
+>
+> Typical NPUs: Huawei Ascend AI chips, Cambricon chips, and IBM TrueNorth
+
+
 
