@@ -932,3 +932,37 @@ Facial recognition result output:
 
 #### HiAI Service
 > HiAI Service enables developers to reuse services on multiple devices, such as mobile phones, tablets, and large screens, with only one service access, efficiently implementing distribution.
+
+## Huawei cloud EI
+file: https://github.com/gabboraron/HCIA-AI-Course/blob/main/9110ebed2fb411ebb802fa163e57590a_08%20HUAWEI%20CLOUD%20Enterprise%20Intelligence%20Application%20Platform.....pdf
+
+On completion of this course, you will be able to: 
+- Know the HUAWEI CLOUD enterprise intelligence (EI) ecosystem and services. 
+- Know the Huawei ModelArts platform and how to perform operations on the platform
+
+### HUAWEI CLOUD EI Services
+>  HUAWEI CLOUD EI is a driving force for enterprises' intelligent transformation. Relying on AI and big data technologies, HUAWEI CLOUD EI provides an open, trustworthy, and intelligent platform through cloud services (in mode such as public cloud or dedicated cloud).
+
+**EI Intelligent Twins**
+
+>  The EI Intelligent Twins integrates AI technologies into application scenarios of various industries and fully utilizes advantages of AI technologies to improve efficiency and experience.
+
+**Traffic Intelligent Twins (TrafficGo)**
+> The Traffic Intelligent Twins (TrafficGo) enables 24/7 and all-area traffic condition monitoring, traffic incident detection, realtime traffic signal scheduling, traffic situation large-screen display, and key vehicle management, delivering an efficient, environment-friendly, and safe travel experience.
+ 
+**Industrial Intelligent Twins**
+
+> The Industrial Intelligent Twins uses big data and AI technologies to provide a full series of services covering design, production, logistics, sales, and service. It helps enterprises gain a leading position
+
+**Campus Intelligent Twins**
+
+> The Campus Intelligent Twins manages and monitors industrial, residential, and commercial campuses. It adopts AI technologies such as video analytics and data mining to make our work and life more convenient and efficient.
+
+**HiLens**
+> https://support.huaweicloud.com/intl/en-us/productdesc-hilens/hilens_01_0001.html
+> 
+> Huawei HiLens consists of computing devices and a cloud-based development platform, and provides a development framework, a development environment, and a management platform to help users develop multimodal AI applications and deliver them to devices, to implement intelligent solutions in multiple scenarios.
+> 
+> ![hilens image](https://support.huaweicloud.com/intl/en-us/productdesc-hilens/en-us_image_0274022486.png)
+
+
