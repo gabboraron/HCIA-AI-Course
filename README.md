@@ -965,4 +965,30 @@ On completion of this course, you will be able to:
 > 
 > ![hilens image](https://support.huaweicloud.com/intl/en-us/productdesc-hilens/en-us_image_0274022486.png)
 
+**GES**
+> GES facilitates query and analysis of graph-structure data based on various relationships. It uses the high performance graph engine EYWA as its kernel, and is granted many independent intellectual property rights. GES plays an important role in scenarios such as social apps, enterprise relationship analysis applications, logistics distribution, shuttle bus route planning, enterprise knowledge graph, and risk control.
+
+**Conversational Bot Service (CBS)**
+- Question-Answering bot (QABot
+- Task-oriented conversational bot (TaskBot)
+- Speech analytics 
+- CBS customization
+
+**EI Experience Center**
+> The EI Experience Center is an AI experience window built by Huawei, dedicated to lowering the threshold for using AI and making AI ubiquitous.
+> 
+> https://www.huaweicloud.com/en-us/ei/experiencespace.html
+
+### ModelArts
+> ModelArts is a one-stop development platform for AI developers. With data preprocessing, semi-automatic data labeling, large-scale distributed training, automatic modeling, and on-demand model deployment on devices, edges, and clouds, ModelArts helps AI developers build models quickly and manage the AI development lifecycle. https://www.huaweicloud.com/en-us/product/modelarts.html
+
+
+
+
+
+
+
+
+
+
 
